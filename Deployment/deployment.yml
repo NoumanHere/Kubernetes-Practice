@@ -43,15 +43,22 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "500m"
-          
+      # ConfigMaps and Secrets volumeMount added   
         volumeMounts:
           - name: config-volume
             mountPath: /configs/
+          - name: secret-volume
+            mountPath: /secrets/
         
+      # Refering to the ConfigMaps and Secrets that are created   
+      
       volumes:
       - name: config-volume
         configMap:
           name: example-config
+      - name: secret-volume
+        secret:
+          secretName:  mysecret
 
 
       tolerations:
