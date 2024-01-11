@@ -1,0 +1,37 @@
+# Config map is a type of object in K8s that holds the configuration of our project. It can be a python file that reads the variables, it can be an app setting file in the dot net or json etc. 
+
+# Application should be portable. All the configuration should not be packed inside the application.
+
+apiVersion: v1
+kind: ConfigMap
+
+metadata: 
+  name: example-config
+data:
+  config.json: |
+    {
+      "environment": "dev"
+    }
+
+
+# We can either pass the env vars here above in data section or we can just have json like here in our case and use in the Pod.
+
+# We can also create config map from the json file directly using the kubectl command i.e kubectl creat configmap example-config --fron-file ./path/to/file/config.json
+
+# In order to use the config map in the deployment, all we have to do is to refer the created configMap name inside the volume section i.e 
+
+   # volumeMounts:
+        # - name: secret-volume
+        #   mountPath: /secrets/
+        # - name: config-volume
+        #   mountPath: /configs/
+#NOTE: comment out `volumes` section for configmap and\or secret guide
+      # volumes:
+      # - name: secret-volume
+      #   secret:
+      #     secretName: mysecret
+      # - name: config-volume
+      #   configMap:
+      #     name: example-config #name of our configmap object
+
+# Firstly the volumes section should be created, then it should be mounted. using the VolumeMounts in deployment
