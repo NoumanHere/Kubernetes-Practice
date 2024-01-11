@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name:  example-service
+spec:
+  selector:
+    app:  example-app
+  # type:  LoadBalancer | ClusterIP | NodePort
+  ports:
+    - protocol: TCP
+      port: 80    
+      targetPort:  5000
